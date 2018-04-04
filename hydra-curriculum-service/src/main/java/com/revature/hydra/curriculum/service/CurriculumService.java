@@ -35,13 +35,12 @@ public class CurriculumService {
 	}
 
 	@SuppressWarnings("rawtypes")
-
-public List<Curriculum> getAllCurriculum(){
+	public List<Curriculum> getAllCurriculum() {
 		List<Curriculum> curriculumList = curriculumRepository.findAll();
 		return curriculumList;
 	}
 
-	public Curriculum getCuricullumById(Integer id){
+	public Curriculum getCuricullumById(Integer id) {
 		Curriculum curriculum = curriculumRepository.findById(id);
 		return curriculum;
 	}
@@ -49,8 +48,8 @@ public List<Curriculum> getAllCurriculum(){
 	/**
 	 * @author Carter Taylor (1712-Steve)
 	 * @param id
-	 *            curriculumId getCuricullumByIdKeepPwd: this method is necessary
-	 *            when updating curriculums server side. Setting the
+	 *            curriculumId getCuricullumByIdKeepPwd: this method is
+	 *            necessary when updating curriculums server side. Setting the
 	 *            curriculumCreator's password to empty throws
 	 *            ConstraintViolationException when updating the corresponding
 	 *            curriculum.
@@ -90,8 +89,8 @@ public List<Curriculum> getAllCurriculum(){
 	/**
 	 * @author Carter Taylor, James Holzer (1712-Steve)
 	 * @param Curriculum
-	 *            version deleteCurriculumSubtopics: Deletes all CurriculumSubtopics
-	 *            related to a curriculum version
+	 *            version deleteCurriculumSubtopics: Deletes all
+	 *            CurriculumSubtopics related to a curriculum version
 	 */
 	@Transactional
 	public void deleteCurriculumSubtopics(Curriculum version) {
