@@ -31,7 +31,7 @@ public class CurriculumSubtopic {
 
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "curriculum_Subtopic_Cur_Id", referencedColumnName = "Curriculum_Id")
+	@JoinColumn(name = "curriculum_Subtopic_Cur_Id", referencedColumnName = "C_ID")
 	private Curriculum curriculum;	//curriculum that the subtopic belongs to
 
 	
