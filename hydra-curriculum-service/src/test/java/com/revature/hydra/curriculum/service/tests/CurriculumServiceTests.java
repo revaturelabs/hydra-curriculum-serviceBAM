@@ -2,24 +2,18 @@ package com.revature.hydra.curriculum.service.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import com.revature.hydra.curriculum.bean.Curriculum;
-import com.revature.hydra.curriculum.pojos.BamUser;
-import com.revature.hydra.curriculum.repository.CurriculumRepository;
-import com.revature.hydra.curriculum.repository.CurriculumSubtopicRepository;
-import com.revature.hydra.curriculum.service.CurriculumService;
+import com.revature.hydra.curriculum.beans.Curriculum;
+import com.revature.hydra.curriculum.exceptions.NoContentException;
+import com.revature.hydra.curriculum.repositories.CurriculumRepository;
+import com.revature.hydra.curriculum.repositories.CurriculumSubtopicRepository;
+import com.revature.hydra.curriculum.services.CurriculumService;
 
 public class CurriculumServiceTests {
 	
@@ -27,6 +21,11 @@ public class CurriculumServiceTests {
 	private CurriculumSubtopicRepository mockCurriculumSubtopicRepository;
 	private CurriculumService curriculumService;
 	
+	/*
+	 * create a mock CurriculumRepository
+	 * create a mock CurriculumSubtopicRepository
+	 * Instantiate a curriculumService with the mock CurriculumRepository and mock CurriculumSubtopicRepository
+	 */
 	@Before
 	public void before() {
 		mockCurriculumRepository = mock(CurriculumRepository.class);
@@ -36,50 +35,34 @@ public class CurriculumServiceTests {
 	
 	@Test
 	public void getAllCurriculum_returnsUsersArgument() {
-//		// SETUP
-//		BamUser user1 = new BamUser(1, null, null, null, null, null, null, null, null, null, null, null);
-//		BamUser user2 = new BamUser(2, null, null, null, null, null, null, null, null, null, null, null);
-//		List<BamUser> argumentList = new ArrayList<>();
-//		argumentList.add(user1);
-//		argumentList.add(user2);
-//
-//		// EXECUTE
-//		Map<String, List> curriculumUsers = curriculumService.getAllCurriculum(argumentList);
-//		
-//		// TEST
-//		assertEquals(curriculumUsers.get("users").size(), argumentList.size());
+		
 	}
 	
+	/*
+	 * Testing if the given ID in getCurriculumByID exists in the database.
+	 */
 	@Test
-	public void getCurriculumById_returnsCurriculumWithMatchingId() {
+	public void getCurriculumById_returnsCurriculumWithMatchingId() throws NoContentException {
 		// SETUP
-		Curriculum curriculum = new Curriculum(1, null, 1, null, null, null, 1, 1);	
-		when(mockCurriculumRepository.findById(1)).thenReturn(curriculum);
+		Curriculum curriculum = new Curriculum(null, 1, null, null, null, 1, 1);	
+		when(mockCurriculumRepository.findCurriculumById(1)).thenReturn(curriculum);
 		
 		// EXECUTE
-		Curriculum returnCurriculum = curriculumService.getCuricullumById(1);
+		Curriculum returnCurriculum = curriculumService.getCurriculumById(1);
 		
 		// TEST
 		assertEquals(returnCurriculum.getId().intValue(), 1);
 	}
 	
-	@Test
-	public void getCurriculumByIdKeepPwd_returnsCurriculumWithMatchingId() {
-		// SETUP
-		Curriculum curriculum = new Curriculum(1, null, 1, null, null, null, 1, 1);	
-		when(mockCurriculumRepository.findById(1)).thenReturn(curriculum);
-		
-		// EXECUTE
-		Curriculum returnCurriculum = curriculumService.getCuricullumByIdKeepPwd(1);
-		
-		// TEST
-		assertEquals(returnCurriculum.getId().intValue(), 1);
-	}
 	
+	/*
+	 * Test and verify to see if curriculum will be saved in the repository 1 time in the 
+	 * mockCurriculumRepository.
+	 */
 	@Test
 	public void save_callsRepositorySave() {
 		// SETUP
-		Curriculum curriculum = new Curriculum(1, null, 1, null, null, null, 1, 1);	
+		Curriculum curriculum = new Curriculum(null, 1, null, null, null, 1, 1);	
 		
 		// EXECUTE
 		curriculumService.save(curriculum);
@@ -88,6 +71,10 @@ public class CurriculumServiceTests {
 		verify(mockCurriculumRepository, times(1)).save(curriculum);
 	}
 	
+	/*
+	 * Test and verify if findByCurriculumName will be invoked once and find the curriculumName in the 
+	 * mockCurriculumRepository.
+	 */
 	@Test
 	public void findAllCurriculumByName_callsRepositoryFindByCurriculumName() {
 		// SETUP
@@ -97,9 +84,13 @@ public class CurriculumServiceTests {
 		curriculumService.findAllCurriculumByName(name);
 		
 		// TEST
-		verify(mockCurriculumRepository, times(1)).findByCurriculumName(name);
+		verify(mockCurriculumRepository, times(1)).findCurriculumByName(name);
 	}
 	
+	/*
+	 * Test and verify if findAllCurriculumByNameAndIsMaster will be invoked once and will search for master curriculum 
+	 * in the mockCurriculumRepository.
+	 */
 	@Test
 	public void findAllCurriculumByNameAndIsMaster_callsRepositoryFindByCurriculumNameAndIsMaster() {
 		// SETUP
@@ -110,9 +101,12 @@ public class CurriculumServiceTests {
 		curriculumService.findAllCurriculumByNameAndIsMaster(name, isMaster);
 		
 		// TEST
-		verify(mockCurriculumRepository, times(1)).findByCurriculumNameAndIsMaster(name, isMaster);
+		verify(mockCurriculumRepository, times(1)).findCurriculumByNameAndIsMasterVersion(name, isMaster);
 	}
 	
+	/*
+	 * Test and verify if a curriculum will be invoked once and will delete the curriculum from mockCurriculumRepository. 
+	 */
 	@Test
 	public void deleteCurriculum_callsRepositoryDelete() {
 		// SETUP
@@ -125,6 +119,9 @@ public class CurriculumServiceTests {
 		verify(mockCurriculumRepository, times(1)).delete(version);
 	}
 	
+	/*
+	 * test and verify if a subtopic will be deleted from mockCurriculumSubtopicRepository.
+	 */
 	@Test
 	public void deleteCurriculumSubtopics_callsRepositoryDeleteCurriculumSubtopics() {
 		// SETUP
