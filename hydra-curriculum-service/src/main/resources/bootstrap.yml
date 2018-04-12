@@ -26,4 +26,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: hydra-discovery-service.cfapps.io
+      defaultZone: http://hydra-discovery-service.cfapps.io
