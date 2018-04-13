@@ -172,12 +172,12 @@ public class CurriculumService {
 	}
 	
 	@Transactional
-	public void deleteSubtopics(Integer curriculumId, List<Integer> subtopicIds) {
+	public void deleteSubtopics(Integer curriculumId, Iterable<Integer> subtopicIds) {
 		curriculumSubtopicRepository.deleteSubtopicsByCurriculumIdAndSubtopicIdIn(curriculumId, subtopicIds);
 	}
 
 	@Transactional
-	public void deleteCurriculums(List<Integer> curriculumIds) {
+	public void deleteCurriculums(Iterable<Integer> curriculumIds) {
 		curriculumRepository.deleteSubtopicsByIdIn(curriculumIds);
 	}
 	

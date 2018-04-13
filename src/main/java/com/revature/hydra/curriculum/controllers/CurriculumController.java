@@ -27,36 +27,60 @@ import com.revature.hydra.curriculum.exceptions.ServiceUnavailableException;
 import com.revature.hydra.curriculum.services.CurriculumService;
 
 /**
- * This class establishes REST endpoints for retrieval and modification of curriculum data.
+ * This class establishes REST endpoints for retrieval and modification of curriculum data. <br>
  * 
- * Endpoint: /api/v2/curricula/curriculums
+ * Handles Zuul Endpoint: /curricula <br>
+ * <pre style="margin:0;border:0;padding:0;font-size:14">
+ * ""  - GET    - {@link #getAllCurriculums()}
+ *     - POST   - {@link #addCurriculum(Curriculum)}
+ *     - PATCH  - {@link #updateCurriculum(Curriculum)}
+ *     - DELETE - {@link #deleteCurriculums(Set)}
+ * 
+ * "/" - GET - {@link #getCurriculums(Set)}
+ * 
+ * "/{cid}" - PUT - {@link #insertSubtopicsToCurriculum(Integer, Set)}
+ * 
+ * "/{cid}/subtopics" - GET    - {@link #getAllCurriculumSubtopics(int)}
+ *                    - DELETE - {@link #deleteSubtopics(Integer, Set)}
+ * </pre>
+ * 
+ * @author Carter Taylor (1712-Steve)
+ * @author Olayinka Ewumi (1712-Steve)
+ * @author Stephen Negron (1801-Trevin)
+ * @author Rafael Sanchez (1801-Trevin)
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
  */
 @RestController
-@RequestMapping("/curriculums")
+@RequestMapping
 public class CurriculumController {
 	@Autowired
 	CurriculumService curriculumService;
 	
 	/**
+	 * Hystrix fallback method for when an endpoint using a remote service can't access the service.
+	 * 
 	 * @author Ricky Baker (1802-Matt)
-	 * Hystrix fallback method for when an endpoint using a remote service can't access the service. 
 	 */
 	public void serviceUnavailable() throws ServiceUnavailableException {
 		throw new ServiceUnavailableException("Service is currently unavailable.");
 	}
 	
 	/**
+	 * Retrieves all curriculums.
+	 * <ul>
+	 * 	<li>HttpStatus.OK: At least 1 curriculum found.</li>
+	 *  <li>HttpStatus.NO_CONTENT: No curriculums found.</li>
+	 * </ul>
+	 * @return The list of all curriculums.
+	 * @throws NoContentException Thrown when given list is empty or null. ({@link HttpStatus#NO_CONTENT})
+	 * 
 	 * @author Carter Taylor (1712-Steve)
 	 * @author Olayinka Ewumi (1712-Steve)
 	 * @author Stephen Negron (1801-Trevin)
 	 * @author Rafael Sanchez (1801-Trevin)
-	 * 
-	 * Retrieves all curriculums.
-	 * 	HttpStatus.OK: At least 1 curriculum found.
-	 *  HttpStatus.NO_CONTENT: No curriculums found.
-	 *  
-	 * @return The list of all curriculums.
-	 * @throws NoContentException Thrown when given list is empty or null. (HttpStatus.NO_CONTENT)
 	 */
 	@GetMapping
 	public List<Curriculum> getAllCurriculums() throws NoContentException {
@@ -64,17 +88,19 @@ public class CurriculumController {
 	}
 	
 	/**
-	 * Gets all requested curriculums by the given set of ids.
-	 * 	Request endpoint: {@code <host>/<path>?ids=<id csl>}
+	 * Gets all requested curriculums by the given set of ids.<br>
+	 * 	Request endpoint: {@code <host>/<path>?ids=<id csl>}<br>
 	 * 
 	 * 
 	 * @param curriculumIds A set of curriculum IDs specified in the query string
  	 * 						in a comma-separated list format.
 	 * @return A response body containing a list of curriculums and one of the following
 	 * 			status codes:
-	 * 				OK: all IDs found
-	 *		 		PARTIAL_CONTENT: only some IDs were found
-	 *				NO_CONTENT: no IDs found or no IDs specified
+	 * 				<ul>
+	 * 				<li>OK: all IDs found</li>
+	 *		 		<li>PARTIAL_CONTENT: only some IDs were found</li>
+	 *				<li>NO_CONTENT: no IDs found or no IDs specified</li>
+	 *				</ul>
 	 *
 	 * @author Ricky Baker (1802-Matt)
 	 */
@@ -99,22 +125,29 @@ public class CurriculumController {
 	}
 
 	/**
+	 * Retrieves a list of subtopics in the specified curriculum.<br>
+	 * <ul>
+	 * 	<li>HttpStatus.OK: Found at least 1 subtopic for the specified curriculum.</li>
+	 *  <li>HttpStatus.NO_CONTENT: No subtopics found for the specified curriculum.</li>
+	 * </ul>
+	 * 
+	 * <b>LastModified:</b><pre style="margin:0;border:0;padding:0;font-size:15">    13 April 2018</pre>
+	 *  
+	 * @param cid The curriculum ID.
+	 * @return A list of curriculum subtopics belonging to the given curriculum.
+	 * 
+	 * @throws NoContentException Thrown when there is no subtopics found.
+	 * 
 	 * @author Carter Taylor (1712-Steve)
 	 * @author Olayinka Ewumi (1712-Steve)
 	 * @author Stephen Negron (1801-Trevin)
 	 * @author Rafael Sanchez (1801-Trevin)
-	 * 
-	 * Retrieves a list of subtopics in the specified curriculum.
-	 * 	HttpStatus.OK: Found at least 1 subtopic for the specified curriculum.
-	 *  HttpStatus.NO_CONTENT: No subtopics found for the specified curriculum.
-	 *  
-	 * @param id The curriculum ID.
-	 * @return A list of curriculum subtopics belonging to the given curriculum.
+	 * @author Ricky Baker (1802-Matt)
 	 */
 	@HystrixCommand(fallbackMethod="serviceUnavailable")
 	@GetMapping("/{cid}/subtopics")
-	public List<Subtopic> getAllCurriculumSubtopics(@PathVariable int id) throws NoContentException {
-		return curriculumService.getAllSubtopicsForCurriculum(id);
+	public List<Subtopic> getAllCurriculumSubtopics(@PathVariable int cid) throws NoContentException {
+		return curriculumService.getAllSubtopicsForCurriculum(cid);
 	}
 	
 //	/**
@@ -143,17 +176,16 @@ public class CurriculumController {
 		return curriculumService.addCurriculum(newCurriculum);
 	}
 	
-	
 	@ResponseStatus(code=HttpStatus.OK)
-	@DeleteMapping("/{cId}/subtopics")
-	public void deleteSubtopics(@PathVariable("cId") Integer curriculumId, 
-			@RequestParam("ids") List<Integer> subtopicIds) {
+	@DeleteMapping("/{cid}/subtopics")
+	public void deleteSubtopics(@PathVariable("cid") Integer curriculumId, 
+			@RequestParam("ids") Set<Integer> subtopicIds) {
 		curriculumService.deleteSubtopics(curriculumId, subtopicIds);
 	}
 	
 	@ResponseStatus(code=HttpStatus.OK)
 	@DeleteMapping
-	public void deleteCurriculums(@RequestParam("ids") List<Integer> curriculumIds) {
+	public void deleteCurriculums(@RequestParam("ids") Set<Integer> curriculumIds) {
 		curriculumService.deleteCurriculums(curriculumIds);
 	}
 	
@@ -164,9 +196,9 @@ public class CurriculumController {
 	
 	@HystrixCommand(fallbackMethod="serviceUnavailable")
 	@ResponseStatus(code=HttpStatus.OK)
-	@PutMapping("/{id}")
-	public void insertSubtopicsToCurriculum(@PathVariable Integer id,
+	@PutMapping("/{cid}")
+	public void insertSubtopicsToCurriculum(@PathVariable Integer cid,
 			@RequestParam("subIds") Set<Integer> subtopicIds) throws BadRequestException {
-		curriculumService.insertSubtopicsToCurriculum(id, subtopicIds);
+		curriculumService.insertSubtopicsToCurriculum(cid, subtopicIds);
 	}
 }

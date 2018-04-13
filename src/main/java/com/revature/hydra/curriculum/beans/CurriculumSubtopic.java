@@ -12,6 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.revature.hydra.util.ReflectionUtils;
+
 /**
  * Pseudo-join table to represent a many-to-many relationship between Subtopic and Curriculum
  */
@@ -89,4 +91,21 @@ public class CurriculumSubtopic {
 	public String toString() {
 		return "CurrSubtopic [id=" + id + ", curriculum=" + curriculum + ", subtopicId=" + subtopicId + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int PRIME = 31;
+		int result = 1;
+		result = PRIME * result + ((curriculum == null) ? 0 : curriculum.hashCode());
+		result = PRIME * result + ((id == null) ? 0 : id.hashCode());
+		result = PRIME * result + ((subtopicId == null) ? 0 : subtopicId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return ReflectionUtils.testEquality(this, obj);
+	}
+	
+	
 }

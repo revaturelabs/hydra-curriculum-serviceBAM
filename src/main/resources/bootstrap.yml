@@ -26,6 +26,13 @@ eureka:
 
 ---
 
+remote-api:
+  topic:
+    request-bulk: http://hydra-topic-service/subtopics
+    verify: http://hydra-topic-service/subtopics/verify
+    
+---
+
 spring:
   profiles: prod
   cloud:

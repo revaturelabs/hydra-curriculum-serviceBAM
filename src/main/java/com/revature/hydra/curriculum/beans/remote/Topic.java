@@ -1,48 +1,64 @@
 package com.revature.hydra.curriculum.beans.remote;
 
+import com.revature.hydra.util.ReflectionUtils;
+
+/**
+ * 
+ */
 public class Topic {
-	private Integer id;
-	private String name;
-	private Integer batchId;
-	private Integer weekNumber;
+
+	private int topicID;
+	private String topicName;
 	
-	public Integer getId() {
-		return id;
+	
+	public Topic() {
+		super();
 	}
-	
-	public void setId(Integer id) {
-		this.id = id;
+
+	public Topic(String topicName) {
+		super();
+		this.topicName = topicName;
 	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Integer getBatchId() {
-		return batchId;
-	}
-	
-	public void setBatchId(Integer batchId) {
-		this.batchId = batchId;
-	}
-	
-	public Integer getWeekNumber() {
-		return weekNumber;
-	}
-	
-	public void setWeekNumber(Integer weekNumber) {
-		this.weekNumber = weekNumber;
-	}
-	
+
+	public Integer getTopicID() {
+		return topicID;
+	}//NOSONAR
+
+
+	public void setTopicID(Integer topicID) {
+		this.topicID = topicID;
+	}//NOSONAR
+
+
+	public String getTopicName() {
+		return topicName;
+	}//NOSONAR
+
+
+	public void setTopicName(String topicName) {
+		this.topicName = topicName;
+	}//NOSONAR
+
+
 	@Override
 	public String toString() {
-		return "Topic [(Topic Id) \t id=" + id + ",\n"
-				+ "(Name) \t name=" + name + ",\n"
-				+ "(Batch Id) \t batchId=" + batchId + ",\n"
-				+ "(Week Number) \t weekNumber=" + weekNumber + "\n]";
+		return "TopicName [\n" +"(Topic ID) \t topicID = " + topicID + ",\n "
+				+ "(Topic name) \t topicName = " + topicName + "]";
+	}//NOSONAR
+
+	@Override
+	public int hashCode() {
+		final int PRIME = 31;
+		int result = 1;
+		result = PRIME * result + topicID;
+		result = PRIME * result + ((topicName == null) ? 0 : topicName.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return ReflectionUtils.testEquality(this, obj);
+	}
+	
+	
 }

@@ -1,10 +1,7 @@
 package com.revature.hydra.curriculum.beans;
 
 
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.revature.hydra.util.ReflectionUtils;
 
 @Entity
 @Table(name = "Curriculum")
@@ -64,30 +62,9 @@ public class Curriculum {
 	private Boolean masterVersion;
 	
 	
-	/**
-	 * Creates a curriculum with default values.
-	 */
 	public Curriculum() {
 	}
 
-	/**
-	 * Creates a curriculum with the given parameters.
-	 * @param name The name of the curriculum.
-	 * @param version The version number of the curriculum.
-	 * @param creatorId The user ID of the user who created the curriculum.
-	 * @param modifierId The user ID of the user who last modified the curriculum.
-	 * @param dateCreated The date the curriculum was created.
-	 * @param numberOfWeeks Number of weeks the curriculum lasts.
-	 */
-	
-	
-	/**
-	 * Get the curriculum's ID.
-	 * @return The curriculum's ID.
-	 */
-	public Integer getId() {
-		return id;
-	}
 
 	public Curriculum(Integer id, String name, Integer version, Integer creatorId, Integer modifierId,
 			Timestamp dateCreated, Integer duration, Boolean masterVersion) {
@@ -101,6 +78,11 @@ public class Curriculum {
 		this.weekDuration = duration;
 		this.masterVersion = masterVersion;
 	}
+	
+	public Integer getId() {
+		return id;
+	}
+
 
 	public String getName() {
 		return name;
@@ -187,62 +169,6 @@ public class Curriculum {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Curriculum other = (Curriculum) obj;
-		
-		
-		if (creatorId == null) {
-			if (other.creatorId != null)
-				return false;
-		} else if (!creatorId.equals(other.creatorId))
-			return false;
-		if (dateCreated == null) {
-			if (other.dateCreated != null)
-				return false;
-		} else if (!dateCreated.equals(other.dateCreated))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (masterVersion == null) {
-			if (other.masterVersion != null)
-				return false;
-		} else if (!masterVersion.equals(other.masterVersion))
-			return false;
-		if (modifierId == null) {
-			if (other.modifierId != null)
-				return false;
-		} else if (!modifierId.equals(other.modifierId))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (version == null) {
-			if (other.version != null)
-				return false;
-		} else if (!version.equals(other.version))
-			return false;
-		if (weekDuration == null) {
-			if (other.weekDuration != null)
-				return false;
-		} else if (!weekDuration.equals(other.weekDuration))
-			return false;
-		return true;
+		return ReflectionUtils.testEquality(this, obj);
 	}
-	
-	
-	
-	
-	
-	
-	
 }
