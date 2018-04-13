@@ -25,10 +25,10 @@ import com.revature.hydra.curriculum.beans.remote.Subtopic;
 @Service
 public class RemoteTopicService {
 	
-	@Value("#{remote-api.topic.request-bulk}")
+	@Value("#{'${remote-api.topic.request-bulk}'}")
 	private static String requestSubtopicsEndpoint;
 	
-	@Value("#{remote-api.topic.verify}")
+	@Value("#{'${remote-api.topic.verify}'}")
 	private static String verifySubtopicsExistEndpoint;
 	
 	@Autowired
@@ -59,6 +59,7 @@ public class RemoteTopicService {
 	 * @author Ricky Baker (1802-Matt)
 	 */
 	public List<Subtopic> requestSubtopics(Set<Integer> subtopicIds) {
+		System.out.println("This is a string   " + requestSubtopicsEndpoint);
 		ParameterizedTypeReference<List<Subtopic>> paramTypeRef = new ParameterizedTypeReference<List<Subtopic>>() {};
 		ResponseEntity<List<Subtopic>> subtopics = restTemplate.exchange(requestSubtopicsEndpoint
 				+ "?ids=" + ST.format("<%1; separator=\",\">", subtopicIds),
