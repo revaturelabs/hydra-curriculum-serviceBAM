@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.revature.hydra.util.ReflectionUtils;
 
 @Entity
 @Table(name="SCHEDULED_DATE")
@@ -107,51 +108,19 @@ public class ScheduledDate {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int result = 1;
-		result = prime * result + ((day == null) ? 0 : day.hashCode());
-		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
-		result = prime * result + ((week == null) ? 0 : week.hashCode());
+		result = PRIME * result + ((day == null) ? 0 : day.hashCode());
+		result = PRIME * result + ((endTime == null) ? 0 : endTime.hashCode());
+		result = PRIME * result + ((id == null) ? 0 : id.hashCode());
+		result = PRIME * result + ((startTime == null) ? 0 : startTime.hashCode());
+		result = PRIME * result + ((week == null) ? 0 : week.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ScheduledDate other = (ScheduledDate) obj;
-		if (day == null) {
-			if (other.day != null)
-				return false;
-		} else if (!day.equals(other.day))
-			return false;
-		if (endTime == null) {
-			if (other.endTime != null)
-				return false;
-		} else if (!endTime.equals(other.endTime))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (startTime == null) {
-			if (other.startTime != null)
-				return false;
-		} else if (!startTime.equals(other.startTime))
-			return false;
-		if (week == null) {
-			if (other.week != null)
-				return false;
-		} else if (!week.equals(other.week))
-			return false;
-		return true;
+		return ReflectionUtils.testEquality(this, obj);
 	}
 	
 }

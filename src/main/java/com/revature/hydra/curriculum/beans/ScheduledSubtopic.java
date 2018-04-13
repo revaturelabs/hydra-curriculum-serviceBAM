@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.revature.hydra.util.ReflectionUtils;
 
 @Entity
 @Table(name="SCHEDULED_SUBTOPICS")
@@ -99,44 +100,17 @@ public class ScheduledSubtopic {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int result = 1;
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((parentSchedule == null) ? 0 : parentSchedule.hashCode());
-		result = prime * result + ((subtopicId == null) ? 0 : subtopicId.hashCode());
+		result = PRIME * result + ((date == null) ? 0 : date.hashCode());
+		result = PRIME * result + ((id == null) ? 0 : id.hashCode());
+		result = PRIME * result + ((parentSchedule == null) ? 0 : parentSchedule.hashCode());
+		result = PRIME * result + ((subtopicId == null) ? 0 : subtopicId.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ScheduledSubtopic other = (ScheduledSubtopic) obj;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (parentSchedule == null) {
-			if (other.parentSchedule != null)
-				return false;
-		} else if (!parentSchedule.equals(other.parentSchedule))
-			return false;
-		if (subtopicId == null) {
-			if (other.subtopicId != null)
-				return false;
-		} else if (!subtopicId.equals(other.subtopicId))
-			return false;
-		return true;
+		return ReflectionUtils.testEquality(this, obj);
 	}
 }

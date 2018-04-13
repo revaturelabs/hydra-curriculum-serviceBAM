@@ -1,73 +1,41 @@
 package com.revature.hydra.curriculum.beans.remote;
 
-import java.time.LocalDateTime;
+import com.revature.hydra.util.ReflectionUtils;
 
 /**
- * Non-persistent java bean that holds subtopic information
+ * Bean representing a subtopic persisted in the topic service.
  */
 public class Subtopic {
-
-	private int id;
-
-	private String name;
-
+	private int subtopicId;
+	private String subtopicName;
 	private String status;
-
-	private LocalDateTime date;
-	
 	private Topic parentTopic;
 	
 	public Subtopic() {
 		super();
 	}
 
-	/**
-	 * Multi-argument constructor for Subtopic bean
-	 * 
-	 * @param subtopicName Name of the subtopic.
-	 * @param status Status of the subtopic
-	 * @param subtopicDate Date of the Subtopic
-	 */
-	public Subtopic(String subtopicName, String status, LocalDateTime subtopicDate) {
+	public Subtopic(String subtopicName, String status, Topic parentTopic) {
 		super();
-		this.name = subtopicName;
+		this.subtopicName = subtopicName;
 		this.status = status;
-		this.date = subtopicDate;
+		this.parentTopic = parentTopic;
 	}
 
-	/**
-	 * Multi-argument constructor for Subtopic bean
-	 * 
-	 * @param subtopicId Id of subtopic
-	 * @param subtopicName Name of the subtopic.
-	 * @param status Status of the subtopic
-	 * @param subtopicDate Date of the Subtopic
-	 */
-	public Subtopic(int subtopicId, String subtopicName, String status,
-			LocalDateTime subtopicDate) {
-		super();
-		this.id = subtopicId;
-		this.name = subtopicName;
-		this.status = status;
-		this.date = subtopicDate;
-	}
-	
-	
-	
-	public int getId() {
-		return id;
+	public int getSubtopicId() {
+		return subtopicId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setSubtopicId(int subtopicId) {
+		this.subtopicId = subtopicId;
 	}
 
-	public String getName() {
-		return name;
+	public String getSubtopicName() {
+		return subtopicName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSubtopicName(String subtopicName) {
+		this.subtopicName = subtopicName;
 	}
 
 	public String getStatus() {
@@ -78,14 +46,6 @@ public class Subtopic {
 		this.status = status;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
-
 	public Topic getParentTopic() {
 		return parentTopic;
 	}
@@ -93,13 +53,31 @@ public class Subtopic {
 	public void setParentTopic(Topic parentTopic) {
 		this.parentTopic = parentTopic;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Subtopic [(Subtopic Id) \t id=" + id + ",\n"
-				+ "(Name) \t name=" + name + ",\n"
-				+ "(Status) \t status=" + status + ",\n"
-				+ "(Date) \t date=" + date + ",\n"
-				+ "(Parent Topic) \t parentTopic=" + parentTopic + "\n]";
+		return "Subtopic [\n" 
+				+ "(Subtopic ID) \t subtopicId=" + subtopicId + ",\n"
+				+ "(Subtopic's Status) \t status=" + status+ ",\n"
+				+ "(Subtopic's Name) \t subtopicName=" + subtopicName+ ",\n"
+				+ "(Parent topic) \t parentTopic=" + parentTopic.toString() + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int PRIME = 31;
+		int result = 1;
+		result = PRIME * result + ((parentTopic == null) ? 0 : parentTopic.hashCode());
+		result = PRIME * result + ((status == null) ? 0 : status.hashCode());
+		result = PRIME * result + subtopicId;
+		result = PRIME * result + ((subtopicName == null) ? 0 : subtopicName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return ReflectionUtils.testEquality(this, obj);
+	}
+
+	
 }
