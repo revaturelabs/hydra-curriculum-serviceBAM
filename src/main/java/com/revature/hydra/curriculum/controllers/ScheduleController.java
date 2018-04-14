@@ -77,8 +77,8 @@ public class ScheduleController {
 	 * @throws NoContentException
 	 */
 	@GetMapping("/{sid}")
-	public Schedule getScheduleById(@PathVariable Integer id) throws NoContentException {
-		return scheduleService.getById(id);
+	public Schedule getScheduleById(@PathVariable Integer sid) throws NoContentException {
+		return scheduleService.getById(sid);
 	}
 	
 	/**
@@ -137,8 +137,8 @@ public class ScheduleController {
 	 * @param id The id of the schedule to delete
 	 */
 	@DeleteMapping("/{sid}")
-	public void deleteScheduleById(@PathVariable int id) {
-		scheduleService.deleteById(id);
+	public void deleteScheduleById(@PathVariable int sid) {
+		scheduleService.deleteById(sid);
 	}
 
 }
