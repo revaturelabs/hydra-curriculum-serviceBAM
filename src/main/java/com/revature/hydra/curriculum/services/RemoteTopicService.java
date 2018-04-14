@@ -25,15 +25,11 @@ import com.revature.hydra.curriculum.beans.remote.Subtopic;
 @Service
 public class RemoteTopicService {
 	
-	@Value("#{'${remote-api.topic.request-bulk}'}")
-	private static String requestSubtopicsEndpoint;
+//	@Value("#{remote-api.topic.request-bulk}")
+	private static String requestSubtopicsEndpoint = "http://hydra-topic-service/subtopics";
 	
-	@Value("#{'${remote-api.topic.verify}'}")
-	private static String verifySubtopicsExistEndpoint;
-	
-	@Autowired
-	private static RestTemplate restTemplate;
-	
+//	@Value("#{remote-api.topic.verify}")
+	private static String verifySubtopicsExistEndpoint = "http://hydra-topic-service/subtopics/verify";
 	
 	/**
 	 * Generates a RestTemplate for performing external REST requests.
@@ -44,10 +40,13 @@ public class RemoteTopicService {
 	 * @author Ricky Baker (1802-Matt)
 	 */
 	@LoadBalanced
-	@Bean
-	private static RestTemplate getRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+	@Bean()
+	public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder) {
 		return restTemplateBuilder.build();
 	}
+	
+	@Autowired
+	RestTemplate restTemplate;
 	
 	
 	/**
@@ -59,8 +58,8 @@ public class RemoteTopicService {
 	 * @author Ricky Baker (1802-Matt)
 	 */
 	public List<Subtopic> requestSubtopics(Set<Integer> subtopicIds) {
-		System.out.println("This is a string   " + requestSubtopicsEndpoint);
 		ParameterizedTypeReference<List<Subtopic>> paramTypeRef = new ParameterizedTypeReference<List<Subtopic>>() {};
+		System.out.println(restTemplate);
 		ResponseEntity<List<Subtopic>> subtopics = restTemplate.exchange(requestSubtopicsEndpoint
 				+ "?ids=" + ST.format("<%1; separator=\",\">", subtopicIds),
 				HttpMethod.GET, null, paramTypeRef);

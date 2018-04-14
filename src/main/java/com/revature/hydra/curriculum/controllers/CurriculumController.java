@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.revature.hydra.curriculum.beans.Curriculum;
 import com.revature.hydra.curriculum.beans.remote.Subtopic;
 import com.revature.hydra.curriculum.exceptions.BadRequestException;
@@ -66,10 +64,9 @@ public class CurriculumController {
 	 * 
 	 * @author Ricky Baker (1802-Matt)
 	 */
-	public <T> T serviceUnavailable() throws ServiceUnavailableException {
+	public void serviceUnavailable() throws ServiceUnavailableException {
 		throw new ServiceUnavailableException("Service is currently unavailable.");
 	}
-	
 	
 	/**
 	 * Retrieves all curriculums.
@@ -147,14 +144,10 @@ public class CurriculumController {
 	 * @author Rafael Sanchez (1801-Trevin)
 	 * @author Ricky Baker (1802-Matt)
 	 */
-	@HystrixCommand(fallbackMethod="getAllCurriculumSubtopicsFallback")
+//	@HystrixCommand(fallbackMethod="serviceUnavailable")
 	@GetMapping("/{cid}/subtopics")
-	public List<Subtopic> getAllCurriculumSubtopics(@PathVariable Integer cid) throws NoContentException {
+	public List<Subtopic> getAllCurriculumSubtopics(@PathVariable int cid) throws NoContentException {
 		return curriculumService.getAllSubtopicsForCurriculum(cid);
-	}
-	
-	public List<Subtopic> getAllCurriculumSubtopicsFallback(Integer cid) throws ServiceUnavailableException {
-		throw new ServiceUnavailableException("Service is currently unavailable.");
 	}
 	
 //	/**
@@ -201,16 +194,11 @@ public class CurriculumController {
 		return curriculumService.updateCurriculum(curriculum);
 	}
 	
-	@HystrixCommand(fallbackMethod="insertSubtopicsToCurriculumFallback")
+	@HystrixCommand(fallbackMethod="serviceUnavailable")
 	@ResponseStatus(code=HttpStatus.OK)
 	@PutMapping("/{cid}")
 	public void insertSubtopicsToCurriculum(@PathVariable Integer cid,
 			@RequestParam("subIds") Set<Integer> subtopicIds) throws BadRequestException {
 		curriculumService.insertSubtopicsToCurriculum(cid, subtopicIds);
-	}
-	
-//	@DefaultProperties(raiseHystrixExceptions= {new HystrixRuntimeException()})
-	public void insertSubtopicsToCurriculumFallback(Integer cid) throws ServiceUnavailableException {
-		throw new ServiceUnavailableException("Service is currently unavailable.");
 	}
 }
