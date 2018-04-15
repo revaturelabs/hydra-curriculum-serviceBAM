@@ -6,6 +6,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -30,29 +32,10 @@ public class RemoteTopicService {
 	public RemoteTopicService(@Value("${remote-api.topic.request-bulk}") String requestSubtopicsEndpoint, 
 			@Value("${remote-api.topic.verify}") String verifySubtopicsExistEndpoint,
 			RestTemplateBuilder restTemplateBuilder) {
-		System.out.println("requestSubtopicEndpoint: " + requestSubtopicsEndpoint);
-		System.out.println("verifySubtopicsExistEndpoint: " + verifySubtopicsExistEndpoint);
-		System.out.println("RestTemplate: " + restTemplate);
-		
 		this.requestSubtopicsEndpoint = requestSubtopicsEndpoint;
 		this.verifySubtopicsExistEndpoint = verifySubtopicsExistEndpoint;
 		restTemplate = restTemplateBuilder.build();
 	}
-	
-	/**
-	 * Generates a RestTemplate for performing external REST requests.
-	 * 
-	 * @param restTemplateBuilder The template builder used to generate the RestTemplate.
-	 * @return A RestTemplate to be used for performing external REST API requests.
-	 * 
-	 * @author Ricky Baker (1802-Matt)
-	 */
-//	@LoadBalanced
-//	@Bean()
-//	public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder) {
-//		return restTemplateBuilder.build();
-//	}
-	
 	
 	/**
 	 * Requests the list of given subtopics from the remote topic service.
