@@ -17,7 +17,7 @@ public final class ReflectionUtils {
 	/**
 	 * Performs an overall equality test by testing each field of {@code a} to the respective field of {@code b}.
 	 * 
-	 * @param <T> The lowest common class of 
+	 * @param <T> The type of {@code a} and {@code b}.
 	 * @param a The object to compare to {@code b}.
 	 * @param b The object to compare to {@code a}.
 	 * @return {@literal true} if all fields of {@code a} and {@code b} are equal. Otherwise, {@literal false}.
@@ -40,7 +40,7 @@ public final class ReflectionUtils {
             isEqual = fieldList.stream().allMatch(field -> {
                 boolean fieldIsEqual = false;
                 
-                try {
+                try { // attempt direct access.
                     field.setAccessible(true);
                     
                     Object aField = field.get(a);
@@ -53,7 +53,9 @@ public final class ReflectionUtils {
                     } else { // Test equality with  aField's custom equals().
                         fieldIsEqual = aField.equals(bField);
                     }
-                } catch (IllegalArgumentException | IllegalAccessException ex) {}
+                } catch (IllegalArgumentException | IllegalAccessException ex) {
+                	// Attempt getter access.
+                }
                 
                 return fieldIsEqual;
             });
@@ -100,21 +102,4 @@ public final class ReflectionUtils {
 		
 		return to;
 	}
-	
-	
-	public static <T> T deepCopyNonNullFieldsDirect(final T to, final T from) throws IllegalArgumentException {
-		if(!to.getClass().equals(from.getClass())) {
-			MessageFormat fmt = new MessageFormat("{0} ({1}) and {2} ({3}) must be the same class.");
-			throw new IllegalArgumentException(fmt.format(new String[] {
-				"to", to.getClass().getName(),
-				"from", from.getClass().getName()
-			}));
-		}
-		
-		Class<?> allClasses = 
-		
-		
-			
-	}
-	
 }

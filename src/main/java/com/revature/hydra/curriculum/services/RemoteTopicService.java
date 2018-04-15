@@ -6,8 +6,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -24,16 +22,22 @@ import com.revature.hydra.curriculum.beans.remote.Subtopic;
  */
 @Service
 public class RemoteTopicService {
-	
-	@Value("#{remote-api.topic.request-bulk}")
-	private static String requestSubtopicsEndpoint;
-	
-	@Value("#{remote-api.topic.verify}")
-	private static String verifySubtopicsExistEndpoint;
+	private String requestSubtopicsEndpoint;
+	private String verifySubtopicsExistEndpoint;
+	private RestTemplate restTemplate;
 	
 	@Autowired
-	private static RestTemplate restTemplate;
-	
+	public RemoteTopicService(@Value("${remote-api.topic.request-bulk}") String requestSubtopicsEndpoint, 
+			@Value("${remote-api.topic.verify}") String verifySubtopicsExistEndpoint,
+			RestTemplateBuilder restTemplateBuilder) {
+		System.out.println("requestSubtopicEndpoint: " + requestSubtopicsEndpoint);
+		System.out.println("verifySubtopicsExistEndpoint: " + verifySubtopicsExistEndpoint);
+		System.out.println("RestTemplate: " + restTemplate);
+		
+		this.requestSubtopicsEndpoint = requestSubtopicsEndpoint;
+		this.verifySubtopicsExistEndpoint = verifySubtopicsExistEndpoint;
+		restTemplate = restTemplateBuilder.build();
+	}
 	
 	/**
 	 * Generates a RestTemplate for performing external REST requests.
@@ -43,11 +47,11 @@ public class RemoteTopicService {
 	 * 
 	 * @author Ricky Baker (1802-Matt)
 	 */
-	@LoadBalanced
-	@Bean
-	private static RestTemplate getRestTemplate(RestTemplateBuilder restTemplateBuilder) {
-		return restTemplateBuilder.build();
-	}
+//	@LoadBalanced
+//	@Bean()
+//	public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+//		return restTemplateBuilder.build();
+//	}
 	
 	
 	/**
