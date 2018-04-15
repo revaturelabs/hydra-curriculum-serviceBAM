@@ -1,6 +1,8 @@
 package com.revature.hydra.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public final class ReflectionUtils {
 	 * @param b The object to compare to {@code a}.
 	 * @return {@literal true} if all fields of {@code a} and {@code b} are equal. Otherwise, {@literal false}.
 	 * @since 2.0
+	 * 
+	 * @author Ricky Baker (1802-Matt)
 	 */
 	public static <T> boolean testEquality(final T a, final T b) {
         boolean isEqual;
@@ -57,4 +61,60 @@ public final class ReflectionUtils {
         
         return isEqual;
     }
+	
+	
+	/**
+	 * Performs a direct copy of any non-null fields in {@code from} to {@code to}.
+	 * This copy is shallow and only copies fields of the most specific class.
+	 * 
+	 * @param to The destination to copy the fields from {@code to} to.
+	 * @param from	The source object to copy fields from.
+	 * @return {@code to}
+	 * @throws IllegalArgumentException Thrown when {@code to} and {@code from} are not the same class.
+	 */
+	public static <T> T shallowCopyNonNullFieldsDirect(final T to, final T from) throws IllegalArgumentException {
+		if(!to.getClass().equals(from.getClass())) {
+			MessageFormat fmt = new MessageFormat("{0} ({1}) and {2} ({3}) must be the same class.");
+			throw new IllegalArgumentException(fmt.format(new String[] {
+				"to", to.getClass().getName(),
+				"from", from.getClass().getName()
+			}));
+		}
+		
+		List<Field> fields = Arrays.asList(to.getClass().getDeclaredFields());
+		
+		fields.forEach(field -> {
+			if(Modifier.isFinal(field.getModifiers()))
+				return; // Ignore final fields.
+			
+			field.setAccessible(true);
+			
+			try {
+				Object fromField = field.get(from);
+				
+				if(fromField != null) {
+					field.set(to, fromField);
+				}
+			} catch (IllegalArgumentException | IllegalAccessException e) {}
+		});
+		
+		return to;
+	}
+	
+	
+	public static <T> T deepCopyNonNullFieldsDirect(final T to, final T from) throws IllegalArgumentException {
+		if(!to.getClass().equals(from.getClass())) {
+			MessageFormat fmt = new MessageFormat("{0} ({1}) and {2} ({3}) must be the same class.");
+			throw new IllegalArgumentException(fmt.format(new String[] {
+				"to", to.getClass().getName(),
+				"from", from.getClass().getName()
+			}));
+		}
+		
+		Class<?> allClasses = 
+		
+		
+			
+	}
+	
 }
