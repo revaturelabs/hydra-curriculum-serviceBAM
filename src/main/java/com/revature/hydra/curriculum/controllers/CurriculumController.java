@@ -44,6 +44,8 @@ import com.revature.hydra.curriculum.services.CurriculumService;
  *                    - DELETE - {@link #deleteSubtopics(Integer, Set)}
  * </pre>
  * 
+ * <br>
+ * <br>
  * <b>Last Modified:</b>
  *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
  * 
