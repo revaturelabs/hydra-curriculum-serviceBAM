@@ -15,7 +15,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import com.revature.hydra.util.Getter;
 import com.revature.hydra.util.ReflectionUtils;
 import com.revature.hydra.util.Setter;
@@ -153,10 +157,12 @@ public class Curriculum {
         this.weekDuration = weekDuration;
     }
 
+    @JsonGetter("masterVersion")
     public Boolean isMasterVersion() {
         return masterVersion;
     }
-
+    
+    @JsonSetter("masterVersion")
     public void setIsMasterVersion(Boolean masterVersion) {
         this.masterVersion = masterVersion;
     }

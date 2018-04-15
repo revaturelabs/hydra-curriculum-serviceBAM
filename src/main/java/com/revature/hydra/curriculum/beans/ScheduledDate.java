@@ -54,6 +54,7 @@ public class ScheduledDate {
     
     @Column(name="START_TIME")
     @NotNull
+
     private Date startTime;
     
     @Column(name="END_TIME")

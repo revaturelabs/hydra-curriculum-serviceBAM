@@ -31,14 +31,17 @@ import com.revature.hydra.curriculum.services.CurriculumService;
  * Handles Zuul Endpoint: /curricula <br>
  * 
  * <pre style="margin:0;border:0;padding:0;font-size:14">
- * ""  - GET    - {@link #getAllCurriculums()}
+ * "/all"  - GET    - {@link #getAllCurriculums()}
+ *
+ * "/" - GET - {@link #getCurriculums(Set)}
  *     - POST   - {@link #addCurriculum(Curriculum)}
+ *     - PUT    - {@link #replaceCurriculum(Curriculum)}
  *     - PATCH  - {@link #updateCurriculum(Curriculum)}
  *     - DELETE - {@link #deleteCurriculums(Set)}
  * 
- * "/" - GET - {@link #getCurriculums(Set)}
- * 
  * "/{cid}" - PUT - {@link #insertSubtopicsToCurriculum(Integer, Set)}
+ * 
+ * "/{cid}/master" - PATCH - {@link #markCurriculumAsMaster(Integer)}
  * 
  * "/{cid}/subtopics" - GET    - {@link #getAllCurriculumSubtopics(int)}
  *                    - DELETE - {@link #deleteSubtopics(Integer, Set)}
@@ -80,14 +83,20 @@ public class CurriculumController {
      *  <li>HttpStatus.NO_CONTENT: No curriculums found.</li>
      * </ul>
      * @return The list of all curriculums.
+<<<<<<< HEAD
      * @throws NoContentException Thrown when given list is empty or null. ({@link HttpStatus#NO_CONTENT})
+=======
+     * @throws NoContentException Thrown when given list is empty or null. 
+     *          ({@link HttpStatus#NO_CONTENT})
+>>>>>>> 32ed02ded26393edc86b82b913d10586a4a39a81
      * 
      * @author Carter Taylor (1712-Steve)
      * @author Olayinka Ewumi (1712-Steve)
      * @author Stephen Negron (1801-Trevin)
      * @author Rafael Sanchez (1801-Trevin)
      */
-    @GetMapping
+
+    @GetMapping("/all")
     public List<Curriculum> getAllCurriculums() throws NoContentException {
         return curriculumService.getAllCurriculums();
     }
@@ -156,28 +165,28 @@ public class CurriculumController {
         return curriculumService.getAllSubtopicsForCurriculum(cid);
     }
     
-//    /**
-//     * @author Jordan DeLong
-//     * @author Carter Taylor (1712-Steve)
-//     * @author Stephen Negron (1801-Trevin)
-//     * @author Rafael Sanchez (1801-Trevin)
-//     * 
-//     * Marks the curriculum with the given ID cId as the master version.
-//     *     HttpStatus.BAD_REQUEST: Could not find a curriculum with the provided ID.
-//     * 
-//     * @param cId The ID of the curriculum to mark as the master version.
-//     * @return The updated master curriculum data.
-//     * 
-//     * @throws BadRequestException Could not find a curriculum with the provided ID.
-//     * @throws NoContentException Could not find the curriculum with the provided ID.
-//     */
-//    @PatchMapping("/{id}/master")
-//    public Curriculum markCurriculumAsMaster(@PathVariable int id) throws BadRequestException {
-//        return curriculumService.markCurriculumAsMaster(id);
-//    }
+    /**
+     * @author Jordan DeLong
+     * @author Carter Taylor (1712-Steve)
+     * @author Stephen Negron (1801-Trevin)
+     * @author Rafael Sanchez (1801-Trevin)
+     * 
+     * Marks the curriculum with the given ID cId as the master version.
+     *     HttpStatus.BAD_REQUEST: Could not find a curriculum with the provided ID.
+     * 
+     * @param cId The ID of the curriculum to mark as the master version.
+     * @return The updated master curriculum data.
+     * 
+     * @throws BadRequestException Could not find a curriculum with the provided ID.
+     * @throws NoContentException Could not find the curriculum with the provided ID.
+     */
+    @PatchMapping("/{cid}/master")
+    public Curriculum markCurriculumAsMaster(@PathVariable Integer cid) throws BadRequestException {
+        return curriculumService.markCurriculumAsMaster(cid);
+    }
 
     
-    @PostMapping
+    @PostMapping("/")
     public Curriculum addCurriculum(@RequestBody Curriculum newCurriculum) throws BadRequestException {
         return curriculumService.addCurriculum(newCurriculum);
     }
@@ -190,14 +199,20 @@ public class CurriculumController {
     }
     
     @ResponseStatus(code=HttpStatus.OK)
-    @DeleteMapping
+    @DeleteMapping("/")
     public void deleteCurriculums(@RequestParam("ids") Set<Integer> curriculumIds) {
         curriculumService.deleteCurriculums(curriculumIds);
     }
     
-    @PatchMapping
+
+    @PatchMapping("/")
     public Curriculum updateCurriculum(@RequestBody Curriculum curriculum) throws NoContentException {
         return curriculumService.updateCurriculum(curriculum);
+    }
+    
+    @PutMapping("/")
+    public Curriculum replaceCurriculum(@RequestBody Curriculum curriculum) throws NoContentException {
+        return curriculumService.replaceCurriculum(curriculum);
     }
     
     @HystrixCommand(fallbackMethod="serviceUnavailable")

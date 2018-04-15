@@ -62,6 +62,7 @@ public class Schedule {
     
     public Schedule() {}
     
+
     public Schedule(Curriculum curriculum) {
         super();
         this.curriculum = curriculum;
