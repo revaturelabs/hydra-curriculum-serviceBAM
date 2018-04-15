@@ -1,5 +1,6 @@
 package com.revature.hydra.curriculum.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,22 +19,43 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.revature.hydra.util.ReflectionUtils;
 
+/**
+ * Represents a collection of scheduled subtopic items.
+ * 
+ * <br>
+ * <br>
+ * <b>LastModified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+ * 
+ * @see ScheduledSubtopic
+ * @see ScheduledDate
+ * 
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
+ */
 @Entity
 @Table(name="SCHEDULE")
-@JsonIdentityInfo(property="id", generator=ObjectIdGenerators.PropertyGenerator.class)
+@JsonIdentityInfo(property="id",
+                  generator=ObjectIdGenerators.PropertyGenerator.class)
 public class Schedule {
     
     @Id
-    @SequenceGenerator(name = "SCHEDULE_ID_GEN", sequenceName = "SCHEDULE_ID_SEQ", allocationSize=1, initialValue=0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCHEDULE_ID_GEN")
+    @SequenceGenerator(name="SCHEDULE_ID_GEN",
+                       sequenceName="SCHEDULE_ID_SEQ",
+                       allocationSize=1,
+                       initialValue=0)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+                    generator="SCHEDULE_ID_GEN")
     private Integer id;
     
     @ManyToOne(optional=false,
                cascade=CascadeType.ALL)
-    @NotNull
+    @NotNull(message="Schedule's referenced curriculum cannot be null.")
     private Curriculum curriculum;
     
-    @OneToMany(mappedBy="parentSchedule", 
+    @OneToMany(mappedBy="parentSchedule",
                fetch=FetchType.LAZY,
                orphanRemoval=true,
                cascade=CascadeType.ALL)
@@ -45,6 +67,7 @@ public class Schedule {
         super();
         this.id = id;
         this.curriculum = curriculum;
+        subtopics = new ArrayList<>();
     }
 
     public Integer getId() {

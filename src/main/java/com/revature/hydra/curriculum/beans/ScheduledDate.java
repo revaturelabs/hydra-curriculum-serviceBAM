@@ -14,6 +14,20 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.hydra.util.ReflectionUtils;
 
+/**
+ * Contains scheduling information for a scheduled subtopic item.
+ * 
+ * <b>LastModified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    13 April 2018</pre>
+ * 
+ * @see Schedule
+ * @see ScheduledSubtopic
+ * 
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
+ */
 @Entity
 @Table(name="SCHEDULED_DATE")
 @JsonIgnoreProperties(ignoreUnknown=true)

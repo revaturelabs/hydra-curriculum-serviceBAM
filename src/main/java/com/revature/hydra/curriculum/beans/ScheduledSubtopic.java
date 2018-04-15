@@ -18,6 +18,20 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.hydra.util.ReflectionUtils;
 
+/**
+ * A subtopic linked with a scheduled time.
+ * 
+ * <b>LastModified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+ * 
+ * @see Schedule
+ * @see ScheduledDate
+ * 
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
+ */
 @Entity
 @Table(name="SCHEDULED_SUBTOPICS")
 @JsonIgnoreProperties(ignoreUnknown=true)

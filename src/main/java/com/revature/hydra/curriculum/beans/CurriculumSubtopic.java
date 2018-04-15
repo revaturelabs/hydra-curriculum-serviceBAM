@@ -15,7 +15,20 @@ import javax.validation.constraints.NotNull;
 import com.revature.hydra.util.ReflectionUtils;
 
 /**
- * Pseudo-join table to represent a many-to-many relationship between Subtopic and Curriculum
+ * Pseudo-join table to represent a many-to-many relationship between 
+ * Subtopic (remote) and Curriculum.
+ * 
+ * <br>
+ * <br>
+ * <b>LastModified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+ * 
+ * @see Curriculum
+ * 
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
  */
 @Entity
 @Table(name="CURRICULUM_SUBTOPIC")
@@ -31,7 +44,7 @@ public class CurriculumSubtopic {
     private Integer id;
     
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="CURRICULUM_ID", 
+    @JoinColumn(name="CURRICULUM_ID",
                 referencedColumnName="Id")
     @NotNull(message="Curriculum ID cannot be null.")
     private Curriculum curriculum;
@@ -41,7 +54,6 @@ public class CurriculumSubtopic {
     private Integer subtopicId;
 
     public CurriculumSubtopic() {
-        
     }
     
     public CurriculumSubtopic(Integer currSubtopicId, Curriculum curriculum, Integer subtopicId) {
@@ -51,37 +63,25 @@ public class CurriculumSubtopic {
         this.subtopicId = subtopicId;
     }
 
-
-
     public Integer getId() {
         return id;
     }
 
-
-
     public void setId(Integer id) {
         this.id = id;
     }
-
-
-
+    
     public Curriculum getCurriculum() {
         return curriculum;
     }
-
-
-
+    
     public void setCurriculum(Curriculum curriculum) {
         this.curriculum = curriculum;
     }
-
-
-
+    
     public Integer getSubtopicId() {
         return subtopicId;
     }
-
-
 
     public void setSubtopicId(Integer subtopicId) {
         this.subtopicId = subtopicId;

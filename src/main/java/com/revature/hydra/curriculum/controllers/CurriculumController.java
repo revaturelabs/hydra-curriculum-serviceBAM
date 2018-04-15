@@ -93,9 +93,9 @@ public class CurriculumController {
      * 
      * 
      * @param curriculumIds A set of curriculum IDs specified in the query string
-      *                         in a comma-separated list format.
-     * @return A response body containing a list of curriculums and one of the following
-     *             status codes:
+     *                      in a comma-separated list format.
+     * @return A response body containing a list of curriculums and one of the 
+     *          following status codes:
      *                 <ul>
      *                 <li>OK: all IDs found</li>
      *                 <li>PARTIAL_CONTENT: only some IDs were found</li>
@@ -131,7 +131,8 @@ public class CurriculumController {
      *  <li>HttpStatus.NO_CONTENT: No subtopics found for the specified curriculum.</li>
      * </ul>
      * 
-     * <b>LastModified:</b><pre style="margin:0;border:0;padding:0;font-size:15">    13 April 2018</pre>
+     * <b>LastModified:</b>
+     * <pre style="margin:0;border:0;padding:0;font-size:15">    13 April 2018</pre>
      *  
      * @param cid The curriculum ID.
      * @return A list of curriculum subtopics belonging to the given curriculum.

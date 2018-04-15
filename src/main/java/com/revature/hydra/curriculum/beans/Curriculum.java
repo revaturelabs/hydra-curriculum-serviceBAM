@@ -15,10 +15,26 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.revature.hydra.util.Getter;
 import com.revature.hydra.util.ReflectionUtils;
+import com.revature.hydra.util.Setter;
 
+/**
+ * Represents a general curriculum.
+ * 
+ * <br>
+ * <br>
+ * <b>LastModified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+ *  
+ * @author Unknown
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
+ */
 @Entity
-@Table(name = "Curriculum")
+@Table(name="CURRICULUM")
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Curriculum {
 
@@ -26,45 +42,46 @@ public class Curriculum {
     @Column(name="ID")
     @SequenceGenerator(initialValue=0,
                        allocationSize=1,
-                       name="CURRICULUM_ID_SEQ_GEN", 
+                       name="CURRICULUM_ID_SEQ_GEN",
                        sequenceName="CURRICULUM_ID_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,
                     generator="CURRICULUM_ID_SEQ_GEN")
     private Integer id;
     
     @Column(name="NAME")
-    @NotEmpty(message="Curriculum name cannot be empty")
-    @NotNull
+    @NotEmpty(message="Curriculum name cannot be empty.")
+    @NotNull(message="Curriculum name cannot be null.")
     private String name;
     
     @Column(name="VERSION")
-    @NotNull
+    @NotNull(message="Curriculum version cannot be null.")
     private Integer version;
     
     @Column(name="CREATOR_ID")
-    @NotNull
+    @NotNull(message="Curriculum creator ID cannot be null.")
     private Integer creatorId;
     
     @Column(name="MODIFIER_ID")
-    @NotNull
+    @NotNull(message="Curriculum modifier ID cannot be null.")
     private Integer modifierId;
     
     @Column(name="DATE_CREATED")
-    @NotNull
+    @NotNull(message="Curriculum date created cannot be null.")
     private Timestamp dateCreated;
     
     @Column(name="WEEK_DURATION")
-    @NotNull
+    @NotNull(message="Curriculum duration (weeks) cannot be null.")
     private Integer weekDuration;
     
-    //should probably be a boolean
     @Column(name="MASTER_VERSION")
+    @NotNull(message="Curriculum master version flag cannot be null.")
+    @Getter("isMasterVersion")
+    @Setter("setIsMasterVersion")
     private Boolean masterVersion;
     
     
     public Curriculum() {
     }
-
 
     public Curriculum(Integer id, String name, Integer version, Integer creatorId, Integer modifierId,
             Timestamp dateCreated, Integer duration, Boolean masterVersion) {
@@ -83,7 +100,10 @@ public class Curriculum {
         return id;
     }
 
-
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }
@@ -132,12 +152,12 @@ public class Curriculum {
         this.weekDuration = weekDuration;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Boolean isMasterVersion() {
+        return masterVersion;
     }
 
-    public Boolean getMasterVersion() {
-        return masterVersion;
+    public void setIsMasterVersion(Boolean masterVersion) {
+        this.masterVersion = masterVersion;
     }
 
     @Override
