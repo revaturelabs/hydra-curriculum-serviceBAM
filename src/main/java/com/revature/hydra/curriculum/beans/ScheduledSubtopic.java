@@ -53,12 +53,13 @@ public class ScheduledSubtopic {
     private Integer subtopicId;
     
     @JoinColumn(name="DATE")
-    @OneToOne(optional=false)
+    @OneToOne(optional=false,
+    		  cascade=CascadeType.ALL,
+    		  orphanRemoval=true)
     private ScheduledDate date;
     
     @JoinColumn(name="SCHEDULE",nullable=false)
-    @ManyToOne(cascade=CascadeType.ALL,
-               fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JsonIdentityReference(alwaysAsId=true)
     private Schedule parentSchedule;
     

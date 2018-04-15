@@ -2,6 +2,8 @@ package com.revature.hydra.curriculum.controllers;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,6 +90,7 @@ public class ScheduledSubtopicController {
      * 
      * @param ids The id's of the ScheduledSubtopics to be deleted
      */
+    @Transactional
     @DeleteMapping
     public void deleteSubtopicsById(@RequestParam("ids") List<Integer> ids) {
         scheduledSubtopicService.delete(ids);
