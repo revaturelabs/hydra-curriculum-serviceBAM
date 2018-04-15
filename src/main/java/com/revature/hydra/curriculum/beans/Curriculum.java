@@ -89,7 +89,7 @@ public class Curriculum {
     }
 
     public Curriculum(Integer id, String name, Integer version, Integer creatorId, Integer modifierId,
-            Timestamp dateCreated, Integer duration, Boolean masterVersion) {
+            Date dateCreated, Integer duration, Boolean masterVersion) {
         super();
         this.id = id;
         this.name = name;

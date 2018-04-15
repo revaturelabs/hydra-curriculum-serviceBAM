@@ -68,6 +68,12 @@ public class Schedule {
         this.curriculum = curriculum;
         subtopics = new ArrayList<>();
     }
+    
+    public Schedule(Curriculum curriculum, List<ScheduledSubtopic> subtopics) {
+        super();
+        this.curriculum = curriculum;
+        this.subtopics = subtopics;
+    }
 
     public Integer getId() {
         return id;
