@@ -3,13 +3,21 @@ package com.revature.hydra.curriculum.beans.remote;
 import com.revature.hydra.util.ReflectionUtils;
 
 /**
+ * A remote bean mirroring the Topic bean in hydra-topic-service.
  * 
+ * <br>
+ * <br>
+ * <b>Last Modified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+ * 
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
  */
 public class Topic {
-
-    private int topicID;
+    private Integer topicID;
     private String topicName;
-    
     
     public Topic() {
         super();
@@ -22,29 +30,29 @@ public class Topic {
 
     public Integer getTopicID() {
         return topicID;
-    }//NOSONAR
+    }
 
 
     public void setTopicID(Integer topicID) {
         this.topicID = topicID;
-    }//NOSONAR
+    }
 
 
     public String getTopicName() {
         return topicName;
-    }//NOSONAR
+    }
 
 
     public void setTopicName(String topicName) {
         this.topicName = topicName;
-    }//NOSONAR
+    }
 
 
     @Override
     public String toString() {
         return "TopicName [\n" +"(Topic ID) \t topicID = " + topicID + ",\n "
                 + "(Topic name) \t topicName = " + topicName + "]";
-    }//NOSONAR
+    }
 
     @Override
     public int hashCode() {

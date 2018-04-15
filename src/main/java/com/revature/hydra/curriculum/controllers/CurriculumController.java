@@ -28,8 +28,8 @@ import com.revature.hydra.curriculum.services.CurriculumService;
 
 /**
  * This class establishes REST endpoints for retrieval and modification of curriculum data. <br>
- * 
  * Handles Zuul Endpoint: /curricula <br>
+ * 
  * <pre style="margin:0;border:0;padding:0;font-size:14">
  * ""  - GET    - {@link #getAllCurriculums()}
  *     - POST   - {@link #addCurriculum(Curriculum)}
@@ -43,6 +43,9 @@ import com.revature.hydra.curriculum.services.CurriculumService;
  * "/{cid}/subtopics" - GET    - {@link #getAllCurriculumSubtopics(int)}
  *                    - DELETE - {@link #deleteSubtopics(Integer, Set)}
  * </pre>
+ * 
+ * <b>Last Modified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
  * 
  * @author Carter Taylor (1712-Steve)
  * @author Olayinka Ewumi (1712-Steve)

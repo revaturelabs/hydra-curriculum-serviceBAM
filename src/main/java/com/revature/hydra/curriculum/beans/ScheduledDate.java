@@ -17,7 +17,7 @@ import com.revature.hydra.util.ReflectionUtils;
 /**
  * Contains scheduling information for a scheduled subtopic item.
  * 
- * <b>LastModified:</b>
+ * <b>Last Modified:</b>
  *  <pre style="margin:0;border:0;padding:0;">    13 April 2018</pre>
  * 
  * @see Schedule

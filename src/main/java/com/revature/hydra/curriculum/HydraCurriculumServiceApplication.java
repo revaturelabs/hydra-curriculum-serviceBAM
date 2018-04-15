@@ -28,7 +28,7 @@ public class HydraCurriculumServiceApplication {
      * 
      * <br>
      * <br>
-     * <b>LastModified:</b>
+     * <b>Last Modified:</b>
      * <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
      * 
      * @return A bean to be used to build Swagger 2 documentation.

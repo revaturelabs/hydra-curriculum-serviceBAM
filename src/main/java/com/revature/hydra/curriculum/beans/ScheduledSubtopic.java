@@ -21,7 +21,7 @@ import com.revature.hydra.util.ReflectionUtils;
 /**
  * A subtopic linked with a scheduled time.
  * 
- * <b>LastModified:</b>
+ * <b>Last Modified:</b>
  *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
  * 
  * @see Schedule

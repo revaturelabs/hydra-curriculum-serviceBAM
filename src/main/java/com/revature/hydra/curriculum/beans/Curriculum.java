@@ -24,7 +24,7 @@ import com.revature.hydra.util.Setter;
  * 
  * <br>
  * <br>
- * <b>LastModified:</b>
+ * <b>Last Modified:</b>
  *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
  *  
  * @author Unknown
