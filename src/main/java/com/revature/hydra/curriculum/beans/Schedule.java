@@ -62,9 +62,8 @@ public class Schedule {
     
     public Schedule() {}
     
-    public Schedule(Integer id, Curriculum curriculum) {
+    public Schedule(Curriculum curriculum) {
         super();
-        this.id = id;
         this.curriculum = curriculum;
         subtopics = new ArrayList<>();
     }

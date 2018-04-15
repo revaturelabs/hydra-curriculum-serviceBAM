@@ -127,7 +127,6 @@ public class ScheduleService {
         }
         
         return scheduleRepository.save(schedule);
-        
     }
     
     /**
