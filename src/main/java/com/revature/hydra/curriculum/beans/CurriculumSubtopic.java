@@ -20,92 +20,92 @@ import com.revature.hydra.util.ReflectionUtils;
 @Entity
 @Table(name="CURRICULUM_SUBTOPIC")
 public class CurriculumSubtopic {
-	
-	@Id
-	@Column(name="ID")
-	@SequenceGenerator(name = "CURRICULUM_SUBTOPIC_ID_SEQ_GEN", 
-					   sequenceName = "CURRICULUM_SUBTOPIC_ID_SEQ",
-					   allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
-					generator = "CURRICULUM_SUBTOPIC_ID_SEQ_GEN")
-	private Integer id;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="CURRICULUM_ID", 
-				referencedColumnName="Id")
-	@NotNull(message="Curriculum ID cannot be null.")
-	private Curriculum curriculum;
-	
-	@Column(name="SUBTOPIC_ID")
-	@NotNull(message="Subtopic ID cannot be null.")
-	private Integer subtopicId;
+    
+    @Id
+    @Column(name="ID")
+    @SequenceGenerator(name = "CURRICULUM_SUBTOPIC_ID_SEQ_GEN", 
+                       sequenceName = "CURRICULUM_SUBTOPIC_ID_SEQ",
+                       allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, 
+                    generator = "CURRICULUM_SUBTOPIC_ID_SEQ_GEN")
+    private Integer id;
+    
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CURRICULUM_ID", 
+                referencedColumnName="Id")
+    @NotNull(message="Curriculum ID cannot be null.")
+    private Curriculum curriculum;
+    
+    @Column(name="SUBTOPIC_ID")
+    @NotNull(message="Subtopic ID cannot be null.")
+    private Integer subtopicId;
 
-	public CurriculumSubtopic() {
-		
-	}
-	
-	public CurriculumSubtopic(Integer currSubtopicId, Curriculum curriculum, Integer subtopicId) {
-		super();
-		id = currSubtopicId;
-		this.curriculum = curriculum;
-		this.subtopicId = subtopicId;
-	}
-
-
-
-	public Integer getId() {
-		return id;
-	}
+    public CurriculumSubtopic() {
+        
+    }
+    
+    public CurriculumSubtopic(Integer currSubtopicId, Curriculum curriculum, Integer subtopicId) {
+        super();
+        id = currSubtopicId;
+        this.curriculum = curriculum;
+        this.subtopicId = subtopicId;
+    }
 
 
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
 
 
-	public Curriculum getCurriculum() {
-		return curriculum;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
 
 
-	public void setCurriculum(Curriculum curriculum) {
-		this.curriculum = curriculum;
-	}
+    public Curriculum getCurriculum() {
+        return curriculum;
+    }
 
 
 
-	public Integer getSubtopicId() {
-		return subtopicId;
-	}
+    public void setCurriculum(Curriculum curriculum) {
+        this.curriculum = curriculum;
+    }
 
 
 
-	public void setSubtopicId(Integer subtopicId) {
-		this.subtopicId = subtopicId;
-	}
+    public Integer getSubtopicId() {
+        return subtopicId;
+    }
 
-	@Override
-	public String toString() {
-		return "CurrSubtopic [id=" + id + ", curriculum=" + curriculum + ", subtopicId=" + subtopicId + "]";
-	}
 
-	@Override
-	public int hashCode() {
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result + ((curriculum == null) ? 0 : curriculum.hashCode());
-		result = PRIME * result + ((id == null) ? 0 : id.hashCode());
-		result = PRIME * result + ((subtopicId == null) ? 0 : subtopicId.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return ReflectionUtils.testEquality(this, obj);
-	}
-	
-	
+    public void setSubtopicId(Integer subtopicId) {
+        this.subtopicId = subtopicId;
+    }
+
+    @Override
+    public String toString() {
+        return "CurrSubtopic [id=" + id + ", curriculum=" + curriculum + ", subtopicId=" + subtopicId + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + ((curriculum == null) ? 0 : curriculum.hashCode());
+        result = PRIME * result + ((id == null) ? 0 : id.hashCode());
+        result = PRIME * result + ((subtopicId == null) ? 0 : subtopicId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ReflectionUtils.testEquality(this, obj);
+    }
+    
+    
 }
