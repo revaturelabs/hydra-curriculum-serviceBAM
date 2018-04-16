@@ -83,14 +83,14 @@ public class CurriculumController {
      *  <li>HttpStatus.NO_CONTENT: No curriculums found.</li>
      * </ul>
      * @return The list of all curriculums.
-     * @throws NoContentException Thrown when given list is empty or null. 
-     *          ({@link HttpStatus#NO_CONTENT})
+     * @throws NoContentException Thrown when given list is empty or null. ({@link HttpStatus#NO_CONTENT})
      * 
      * @author Carter Taylor (1712-Steve)
      * @author Olayinka Ewumi (1712-Steve)
      * @author Stephen Negron (1801-Trevin)
      * @author Rafael Sanchez (1801-Trevin)
      */
+
     @GetMapping("/all")
     public List<Curriculum> getAllCurriculums() throws NoContentException {
         return curriculumService.getAllCurriculums();
@@ -155,9 +155,14 @@ public class CurriculumController {
      * @author Ricky Baker (1802-Matt)
      */
 //    @HystrixCommand(fallbackMethod="serviceUnavailable")
+//    @GetMapping("/{cid}/subtopics")
+//    public List<Subtopic> getAllCurriculumSubtopics(@PathVariable int cid) throws NoContentException {
+//        return curriculumService.getAllSubtopicsForCurriculum(cid);
+//    }
+    
     @GetMapping("/{cid}/subtopics")
-    public List<Subtopic> getAllCurriculumSubtopics(@PathVariable int cid) throws NoContentException {
-        return curriculumService.getAllSubtopicsForCurriculum(cid);
+    public List<Integer> getAllCurriculumSubtopicIds(@PathVariable Integer cid) throws NoContentException {
+    	return curriculumService.getAllSubtopicIdsForCurriculum(cid);
     }
     
     /**
@@ -199,6 +204,7 @@ public class CurriculumController {
         curriculumService.deleteCurriculums(curriculumIds);
     }
     
+
     @PatchMapping("/")
     public Curriculum updateCurriculum(@RequestBody Curriculum curriculum) throws NoContentException {
         return curriculumService.updateCurriculum(curriculum);
