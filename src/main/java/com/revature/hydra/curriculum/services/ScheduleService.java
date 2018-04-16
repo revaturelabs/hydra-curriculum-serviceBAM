@@ -1,5 +1,6 @@
 package com.revature.hydra.curriculum.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.hydra.curriculum.beans.Curriculum;
 import com.revature.hydra.curriculum.beans.Schedule;
+import com.revature.hydra.curriculum.beans.ScheduledSubtopic;
 import com.revature.hydra.curriculum.exceptions.BadRequestException;
 import com.revature.hydra.curriculum.exceptions.NoContentException;
 import com.revature.hydra.curriculum.repositories.ScheduleRepository;
@@ -115,18 +117,31 @@ public class ScheduleService {
     @Transactional
     public Schedule add(Schedule schedule) throws NoContentException, BadRequestException {
         schedule.setId(null);
-        
+    	
         Curriculum curriculum = curriculumService.getCurriculumById(schedule.getCurriculum().getId());
         
         //make sure that curriculum is valid
         if(curriculum == null) {
             throw new BadRequestException("Non-existent curriculum is associated with the schedule.");
         }
-        else {
-            schedule.setCurriculum(curriculum);
+        
+        schedule.setCurriculum(curriculum);
+        
+        List<ScheduledSubtopic> subtopics = schedule.getSubtopics();
+        if(subtopics != null && !subtopics.isEmpty()) {
+    		schedule.setSubtopics(new ArrayList<ScheduledSubtopic>());
+		}
+        
+        schedule = scheduleRepository.save(schedule);
+        
+        if(subtopics != null && !subtopics.isEmpty()) {
+        	final Schedule parentSchedule = schedule;
+        	subtopics.forEach(subtopic -> subtopic.setParentSchedule(parentSchedule));
+        	schedule.setSubtopics(subtopics);
+        	schedule = scheduleRepository.save(schedule);
         }
         
-        return scheduleRepository.save(schedule);
+        return schedule;
     }
     
     /**

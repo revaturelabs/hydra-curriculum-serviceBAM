@@ -12,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.hydra.util.ReflectionUtils;
 
 /**
@@ -32,6 +33,7 @@ import com.revature.hydra.util.ReflectionUtils;
  */
 @Entity
 @Table(name="CURRICULUM_SUBTOPIC")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class CurriculumSubtopic {
     
     @Id

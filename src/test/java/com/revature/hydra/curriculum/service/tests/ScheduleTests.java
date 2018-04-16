@@ -67,6 +67,13 @@ public class ScheduleTests {
 		Curriculum[] curriculum = mapper.readValue(curriculumJsonStr, Curriculum[].class);
 		
 		Schedule schedule = new Schedule(curriculum[0]);
+		
+		List<ScheduledSubtopic> subtopics  = new ArrayList<ScheduledSubtopic>();
+		ScheduledDate scheduledDate = new ScheduledDate(20,20,new Date(), new Date());
+		subtopics.add(new ScheduledSubtopic(1,1000,scheduledDate, schedule));
+		
+		schedule.setSubtopics(subtopics);
+		
 		JsonNode jsonNode = JsonNodeFactory.instance.pojoNode(schedule);
 		
 		RestAssured.given()

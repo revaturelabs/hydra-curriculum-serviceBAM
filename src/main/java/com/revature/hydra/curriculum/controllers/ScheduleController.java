@@ -1,5 +1,6 @@
 package com.revature.hydra.curriculum.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.hydra.curriculum.beans.Schedule;
+import com.revature.hydra.curriculum.beans.ScheduledSubtopic;
 import com.revature.hydra.curriculum.exceptions.BadRequestException;
 import com.revature.hydra.curriculum.exceptions.NoContentException;
 import com.revature.hydra.curriculum.services.ScheduleService;
@@ -29,7 +31,7 @@ import com.revature.hydra.curriculum.services.ScheduleService;
  * <pre style="margin:0;border:0;padding:0;font-size:14">
  * ""  - GET    - {@link #getAllSchedules()}
  *     - POST   - {@link #addSchedule(Schedule)}
- *     - PATCH  - {@link #updateScehdule(Schedule)}
+ *     - PATCH  - {@link #updateSchedule(Schedule)}
  *     
  * "/{sid}  - DELETE - {@link #deleteScheduleById(int)}
  * 
@@ -109,7 +111,7 @@ public class ScheduleController {
      */
     @PostMapping
     public void addSchedule(@RequestBody Schedule schedule) throws NoContentException, BadRequestException {
-        scheduleService.add(schedule);
+    	scheduleService.add(schedule);
     }
     
     /**
@@ -124,7 +126,7 @@ public class ScheduleController {
      * @throws BadRequestException
      */
     @PatchMapping
-    public void updateScehdule(@RequestBody Schedule schedule) throws NoContentException, BadRequestException {
+    public void updateSchedule(@RequestBody Schedule schedule) throws NoContentException, BadRequestException {
         scheduleService.update(schedule);
     }
     

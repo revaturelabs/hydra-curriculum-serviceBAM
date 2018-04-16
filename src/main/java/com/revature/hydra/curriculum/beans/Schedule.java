@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.revature.hydra.util.ReflectionUtils;
 
@@ -39,6 +40,7 @@ import com.revature.hydra.util.ReflectionUtils;
 @Table(name="SCHEDULE")
 @JsonIdentityInfo(property="id",
                   generator=ObjectIdGenerators.PropertyGenerator.class)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Schedule {
     
     @Id
