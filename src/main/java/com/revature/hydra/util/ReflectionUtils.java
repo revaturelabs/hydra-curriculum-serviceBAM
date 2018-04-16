@@ -71,6 +71,7 @@ public final class ReflectionUtils {
         return getterNameCandidates;
     }
     
+    
     /** 
      * Generates a list of possible setter method names for the field {@code f}.<br>
      * <br>
@@ -359,7 +360,8 @@ public final class ReflectionUtils {
      * @param <T> The type of {@code a} and {@code b}.
      * @param a The object to compare to {@code b}.
      * @param b The object to compare to {@code a}.
-     * @return {@literal true} if all fields of {@code a} and {@code b} are equal. 
+     * 
+     * @return {@literal true} if all fields of {@code a} and {@code b} are equal. Otherwise, {@literal false}.
      *          Otherwise, {@literal false}.
      * @since 2.0
      * 

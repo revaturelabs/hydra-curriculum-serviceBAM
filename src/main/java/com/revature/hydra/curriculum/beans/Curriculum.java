@@ -2,6 +2,7 @@ package com.revature.hydra.curriculum.beans;
 
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonSetter;
+
 import com.revature.hydra.util.Getter;
 import com.revature.hydra.util.ReflectionUtils;
 import com.revature.hydra.util.Setter;
@@ -69,7 +72,7 @@ public class Curriculum {
     
     @Column(name="DATE_CREATED")
     @NotNull(message="Curriculum date created cannot be null.")
-    private Timestamp dateCreated;
+    private Date dateCreated;
     
     @Column(name="WEEK_DURATION")
     @NotNull(message="Curriculum duration (weeks) cannot be null.")
@@ -86,7 +89,7 @@ public class Curriculum {
     }
 
     public Curriculum(Integer id, String name, Integer version, Integer creatorId, Integer modifierId,
-            Timestamp dateCreated, Integer duration, Boolean masterVersion) {
+            Date dateCreated, Integer duration, Boolean masterVersion) {
         super();
         this.id = id;
         this.name = name;
@@ -138,11 +141,11 @@ public class Curriculum {
         this.modifierId = modifierId;
     }
 
-    public Timestamp getDateCreated() {
+    public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Timestamp dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 

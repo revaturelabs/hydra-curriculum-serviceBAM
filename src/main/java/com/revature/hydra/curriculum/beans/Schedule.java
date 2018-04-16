@@ -50,24 +50,29 @@ public class Schedule {
                     generator="SCHEDULE_ID_GEN")
     private Integer id;
     
-    @ManyToOne(optional=false,
-               cascade=CascadeType.ALL)
+    @ManyToOne(optional=false)
     @NotNull(message="Schedule's referenced curriculum cannot be null.")
     private Curriculum curriculum;
     
     @OneToMany(mappedBy="parentSchedule",
                fetch=FetchType.LAZY,
                orphanRemoval=true,
-               cascade=CascadeType.ALL)
+               cascade= CascadeType.ALL)
     private List<ScheduledSubtopic> subtopics;
     
     public Schedule() {}
     
-    public Schedule(Integer id, Curriculum curriculum) {
+
+    public Schedule(Curriculum curriculum) {
         super();
-        this.id = id;
         this.curriculum = curriculum;
         subtopics = new ArrayList<>();
+    }
+    
+    public Schedule(Curriculum curriculum, List<ScheduledSubtopic> subtopics) {
+        super();
+        this.curriculum = curriculum;
+        this.subtopics = subtopics;
     }
 
     public Integer getId() {
