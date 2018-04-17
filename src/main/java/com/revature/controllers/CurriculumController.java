@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.revature.beans.Curriculum;
-import com.revature.beans.remote.Subtopic;
 import com.revature.exceptions.BadRequestException;
 import com.revature.exceptions.NoContentException;
 import com.revature.exceptions.ServiceUnavailableException;
@@ -33,7 +32,7 @@ import com.revature.services.CurriculumService;
  * <pre style="margin:0;border:0;padding:0;font-size:14">
  * "/all"  - GET    - {@link #getAllCurriculums()}
  *
- * "/" - GET - {@link #getCurriculums(Set)}
+ * "/" - GET    - {@link #getCurriculums(Set)}
  *     - POST   - {@link #addCurriculum(Curriculum)}
  *     - PUT    - {@link #replaceCurriculum(Curriculum)}
  *     - PATCH  - {@link #updateCurriculum(Curriculum)}
@@ -64,6 +63,7 @@ import com.revature.services.CurriculumService;
 @RestController
 @RequestMapping
 public class CurriculumController {
+    
     @Autowired
     CurriculumService curriculumService;
     
