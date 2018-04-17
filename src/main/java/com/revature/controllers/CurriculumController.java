@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.revature.beans.Curriculum;
-import com.revature.beans.remote.Subtopic;
-import com.revature.exceptions.BadRequestException;
-import com.revature.exceptions.NoContentException;
-import com.revature.exceptions.ServiceUnavailableException;
-import com.revature.services.CurriculumService;
+import com.revature.hydra.curriculum.beans.Curriculum;
+import com.revature.hydra.curriculum.beans.Schedule;
+import com.revature.hydra.curriculum.beans.remote.Subtopic;
+import com.revature.hydra.curriculum.exceptions.BadRequestException;
+import com.revature.hydra.curriculum.exceptions.NoContentException;
+import com.revature.hydra.curriculum.exceptions.ServiceUnavailableException;
+import com.revature.hydra.curriculum.services.CurriculumService;
 
 /**
  * This class establishes REST endpoints for retrieval and modification of curriculum data. <br>
@@ -45,6 +46,8 @@ import com.revature.services.CurriculumService;
  * 
  * "/{cid}/subtopics" - GET    - {@link #getAllCurriculumSubtopics(int)}
  *                    - DELETE - {@link #deleteSubtopics(Integer, Set)}
+ *                    
+ * "/{cid}/schedules" - GET - {@link #getAllCurriculumSchedules(Integer)}
  * </pre>
  * 
  * <br>
@@ -77,6 +80,15 @@ public class CurriculumController {
     }
     
     /**
+     * Gets all schedules belonging to a particular curriculum version.
+     * @return
+     */
+    @GetMapping("/{cid}/schedules")
+    public List<Schedule> getAllCurriculumSchedules(@PathVariable Integer cid) {
+    	return curriculumService.getAllSchedulesByCurriculumId(cid);
+    }
+    
+    /**
      * Retrieves all curriculums.
      * <ul>
      *     <li>HttpStatus.OK: At least 1 curriculum found.</li>
@@ -92,7 +104,6 @@ public class CurriculumController {
      * @throws NoContentException Thrown when given list is empty or null. ({@link HttpStatus#NO_CONTENT})
      * 
      */
-
     @GetMapping("/all")
     public List<Curriculum> getAllCurriculums() throws NoContentException {
         return curriculumService.getAllCurriculums();
@@ -157,6 +168,7 @@ public class CurriculumController {
      * @throws NoContentException Thrown when there is no subtopics found.
      * 
      */
+     
 //    @HystrixCommand(fallbackMethod="serviceUnavailable")
 //    @GetMapping("/{cid}/subtopics")
 //    public List<Subtopic> getAllCurriculumSubtopics(@PathVariable int cid) throws NoContentException {

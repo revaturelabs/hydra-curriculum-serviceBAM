@@ -10,14 +10,17 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.beans.Curriculum;
-import com.revature.beans.CurriculumSubtopic;
-import com.revature.beans.remote.Subtopic;
-import com.revature.exceptions.BadRequestException;
-import com.revature.exceptions.NoContentException;
-import com.revature.repositories.CurriculumRepository;
-import com.revature.repositories.CurriculumSubtopicRepository;
-import com.revature.util.ReflectionUtils;
+
+import com.revature.hydra.curriculum.beans.Curriculum;
+import com.revature.hydra.curriculum.beans.CurriculumSubtopic;
+import com.revature.hydra.curriculum.beans.Schedule;
+import com.revature.hydra.curriculum.beans.remote.Subtopic;
+import com.revature.hydra.curriculum.exceptions.BadRequestException;
+import com.revature.hydra.curriculum.exceptions.NoContentException;
+import com.revature.hydra.curriculum.repositories.CurriculumRepository;
+import com.revature.hydra.curriculum.repositories.CurriculumSubtopicRepository;
+import com.revature.hydra.util.ReflectionUtils;
+
 
 /**
  * A Service class for retrieving and modifying curriculum data.
@@ -34,6 +37,8 @@ public class CurriculumService {
     @Autowired
     private RemoteTopicService remoteTopicService;
     
+    @Autowired
+    private ScheduleService scheduleService;
     
     public CurriculumService() {
         super();
@@ -260,6 +265,10 @@ public class CurriculumService {
         
         curriculumSubtopicRepository.save(curriculumSubtopics);
     }
+
+	public List<Schedule> getAllSchedulesByCurriculumId(Integer id) {
+		return scheduleService.getAllSchedulesByCurriculumId(id);
+	}
 }
 
 
