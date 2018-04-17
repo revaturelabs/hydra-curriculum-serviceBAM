@@ -4,9 +4,22 @@ import com.revature.util.ReflectionUtils;
 
 /**
  * Bean representing a subtopic persisted in the topic service.
+ * 
+ * <br>
+ * <br>
+ * <b>Last Modified:</b>
+ *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+ *  
+ * @see Topic
+ * 
+ * @author [see same bean in hydra-topic-service (1802-Matt)]  
+ * @author Ricky Baker (1802-Matt)
+ * @author Seth Maize (1802-Matt)
+ * 
+ * @version 2.0
  */
 public class Subtopic {
-    private int subtopicId;
+    private Integer subtopicId;
     private String subtopicName;
     private String status;
     private Topic parentTopic;

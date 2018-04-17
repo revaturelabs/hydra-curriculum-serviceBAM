@@ -52,7 +52,6 @@ public final class ReflectionUtils {
      * 
      * @author Ricky Baker (1802-Matt)
      */
-    @SuppressWarnings("unused")
     private static List<String> generateDefaultGetterNames(Field f) {
         List<String> getterNameCandidates = new ArrayList<>();
         final String[] PREFIXES = 

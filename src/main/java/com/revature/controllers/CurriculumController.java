@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-
 import com.revature.beans.Curriculum;
 import com.revature.beans.Schedule;
-import com.revature.beans.remote.Subtopic;
 import com.revature.exceptions.BadRequestException;
 import com.revature.exceptions.NoContentException;
-import com.revature.exceptions.ServiceUnavailableException;
 import com.revature.services.CurriculumService;
 
 /**
@@ -35,7 +32,7 @@ import com.revature.services.CurriculumService;
  * <pre style="margin:0;border:0;padding:0;font-size:14">
  * "/all"  - GET    - {@link #getAllCurriculums()}
  *
- * "/" - GET - {@link #getCurriculums(Set)}
+ * "/" - GET    - {@link #getCurriculums(Set)}
  *     - POST   - {@link #addCurriculum(Curriculum)}
  *     - PUT    - {@link #replaceCurriculum(Curriculum)}
  *     - PATCH  - {@link #updateCurriculum(Curriculum)}
@@ -68,21 +65,25 @@ import com.revature.services.CurriculumService;
 @RestController
 @RequestMapping
 public class CurriculumController {
-    @Autowired
-    CurriculumService curriculumService;
+    private final CurriculumService curriculumService;
     
-    /**
-     * Hystrix fallback method for when an endpoint using a remote service can't access the service.
-     * 
-     * @author Ricky Baker (1802-Matt)
-     */
-    public void serviceUnavailable() throws ServiceUnavailableException {
-        throw new ServiceUnavailableException("Service is currently unavailable.");
+    @Autowired
+    public CurriculumController(CurriculumService curriculumService) {
+        this.curriculumService = curriculumService;
     }
     
     /**
-     * Gets all schedules belonging to a particular curriculum version.
-     * @return
+     * Get all schedules belonging to a particular curriculum.
+     * 
+     * <br>
+     * <br>
+     * <b>Last Modified:</b>
+     *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+     * 
+     * @param cid The curriculum ID of the schedules.
+     * @return A list of schedules which belong to the specified curriculum.
+     * 
+     * @author Ricky Baker (1802-Matt)
      */
     @GetMapping("/{cid}/schedules")
     public List<Schedule> getAllCurriculumSchedules(@PathVariable Integer cid) {
@@ -91,10 +92,10 @@ public class CurriculumController {
     
     /**
      * Retrieves all curriculums.
-     * <ul>
-     *     <li>HttpStatus.OK: At least 1 curriculum found.</li>
-     *  <li>HttpStatus.NO_CONTENT: No curriculums found.</li>
-     * </ul>
+     *  <ul>
+     *      <li>HttpStatus.OK: At least 1 curriculum found.</li>
+     *      <li>HttpStatus.NO_CONTENT: No curriculums found.</li>
+     *  </ul>
      * 
      * @author Carter Taylor (1712-Steve)
      * @author Olayinka Ewumi (1712-Steve)
@@ -102,8 +103,8 @@ public class CurriculumController {
      * @author Rafael Sanchez (1801-Trevin)
      * 
      * @return The list of all curriculums.
-     * @throws NoContentException Thrown when given list is empty or null. ({@link HttpStatus#NO_CONTENT})
-     * 
+     * @throws NoContentException Thrown when given list is empty or null. 
+     *          ({@link HttpStatus#NO_CONTENT})
      */
     @GetMapping("/all")
     public List<Curriculum> getAllCurriculums() throws NoContentException {
