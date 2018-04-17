@@ -19,13 +19,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.revature.hydra.curriculum.beans.Curriculum;
-import com.revature.hydra.curriculum.beans.Schedule;
-import com.revature.hydra.curriculum.beans.remote.Subtopic;
-import com.revature.hydra.curriculum.exceptions.BadRequestException;
-import com.revature.hydra.curriculum.exceptions.NoContentException;
-import com.revature.hydra.curriculum.exceptions.ServiceUnavailableException;
-import com.revature.hydra.curriculum.services.CurriculumService;
+
+import com.revature.beans.Curriculum;
+import com.revature.beans.Schedule;
+import com.revature.beans.remote.Subtopic;
+import com.revature.exceptions.BadRequestException;
+import com.revature.exceptions.NoContentException;
+import com.revature.exceptions.ServiceUnavailableException;
+import com.revature.services.CurriculumService;
 
 /**
  * This class establishes REST endpoints for retrieval and modification of curriculum data. <br>
