@@ -113,6 +113,7 @@ public class CurriculumController {
     
     /**
      * Retrieves all curriculums.
+<<<<<<< HEAD:src/main/java/com/revature/controllers/CurriculumController.java
      *  <ul>
      *    <li>{@link HttpStatus#OK}: At least 1 curriculum found.</li>
      *    <li>{@link HttpStatus#NO_CONTENT}: No curriculums found.</li>
@@ -122,6 +123,19 @@ public class CurriculumController {
      * <br>
      * <b>Last Modified:</b>
      *  <pre style="margin:0;border:0;padding:0;">    15 April 2018</pre>
+=======
+     * <ul>
+     *     <li>HttpStatus.OK: At least 1 curriculum found.</li>
+     *  <li>HttpStatus.NO_CONTENT: No curriculums found.</li>
+     * </ul>
+     * @return The list of all curriculums.
+<<<<<<< HEAD
+     * @throws NoContentException Thrown when given list is empty or null. ({@link HttpStatus#NO_CONTENT})
+=======
+     * @throws NoContentException Thrown when given list is empty or null. 
+     *          ({@link HttpStatus#NO_CONTENT})
+>>>>>>> 32ed02ded26393edc86b82b913d10586a4a39a81
+>>>>>>> features/fixes:src/main/java/com/revature/hydra/curriculum/controllers/CurriculumController.java
      * 
      * @author Carter Taylor (1712-Steve)
      * @author Olayinka Ewumi (1712-Steve)
@@ -133,6 +147,7 @@ public class CurriculumController {
      * 
      * @since 2.0
      */
+
     @GetMapping("/all")
     public ResponseEntity<List<Curriculum>> getAllCurriculums() {
         List<Curriculum> curriculumList;
